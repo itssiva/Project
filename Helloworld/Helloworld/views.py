@@ -33,14 +33,8 @@ def get_frequencies_per_minute(timestamps):
             end += SECONDS
     if count > 0:
         freqs.append(count)
-    return freqs
 
-
-def get_frequencies_per_minute_key(key):
-    for key in r.keys(key+':*'):
-        timestamps = r.lrange(key, 0, -1)
-        freqs = get_frequencies_per_minute(timestamps)
-        return freqs
+    return ", ".join(str(i) for i in freqs)
 
 
 def home(request):

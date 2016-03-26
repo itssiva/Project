@@ -58,7 +58,7 @@
                 {% for ip, freq_list in hw_freq.items %}
                     <tr>
                         <td>{{ ip }}</td>
-                        <td>{% for freq in freq_list %}{{ freq }} , {% endfor %}</td>
+                        <td>{{ freq_list }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -76,9 +76,11 @@
             </thead>
             <tbody>
                 {% for ip, freq_list in hwl_freq.items %}
+
                     <tr>
                         <td>{{ ip }}</td>
-                        <td>{% for freq in freq_list %}{{ freq }} , {% endfor %}</td>
+
+                        <td>{{ freq_list}}</td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -98,7 +100,7 @@
                 {% for ip, freq_list in l_freq.items %}
                     <tr>
                         <td>{{ ip}}</td>
-                        <td>{% for freq in freq_list %}{{ freq }} , {% endfor %}</td>
+                        <td>{{ freq_list }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
