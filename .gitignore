@@ -1,0 +1,18 @@
+*.py[cod]
+*.swp
+
+
+# Django stuff:
+*.log
+*.pot
+
+#files to  ignore
+development_settings.py
+production_settings.py
+test_script.py
+
+
+#directories to ignore
+.idea/
+
+*.sqlite3

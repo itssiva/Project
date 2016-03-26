@@ -1,0 +1,167 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    color: black;
+}
+
+hr {
+    margin: 10px;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+body {
+    background-color: #F2F2F2;
+}
+
+.label, .glyphicon {
+    margin-right: 5px;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0px auto;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    min-width: 320px;
+}
+
+.header{
+    height: 100px;
+    width: auto;
+}
+
+
+.drchrono_signup {
+    width: 90%;
+    margin: 10px auto;
+    text-align: center;
+    border: 1px solid green;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.features {
+    border: 1px solid green;
+    border-radius: 5px;
+    margin: 20px 10px;
+    padding: 5px 5px;
+    text-align: center;
+}
+
+.feature{
+    margin-left: 20px;
+    vertical-align: top;
+}
+
+.card {
+    width: 33%;
+}
+
+@media screen and (max-width: 600px) {
+    .card {
+        width: 90%;
+    }
+}
+
+.card .col-sm-12 {
+    width: 90%;
+    margin: auto;
+}
+
+.feature_customize {
+    height: 100px;
+}
+
+.row {
+    text-align: center;
+    margin: 20px 5px;
+}
+
+.coming_soon {
+    text-align: center;
+    border: 1px solid green;
+    border-radius: 5px;
+    margin: 20px auto;
+    padding: 20px 5px;
+    float: right;
+}
+
+
+
+.thumbnail {
+    height: 200px;
+    border: 1px solid green;
+}
+
+.thumbnail img {
+    height: 100px;
+}
+
+.thumbnail .button-toggle {
+    padding: 30px 10px;
+    height: 100px;
+}
+
+
+.user {
+    clear: left;
+    text-align: right;
+    display: block;
+    margin-right: 100px;
+}
+
+.user_logout {
+    clear: left;
+    text-align: right;
+    display: block;
+    margin-right: 100px;
+}
+
+
+.footer {
+    text-align: center;
+    padding: 30px 30px;
+    clear: both;
+}
+
+
+.attributes {
+    margin: 50px auto;
+     margin-left: 100px;
+}
+
+.attributes ul li {
+    margin-left: 80px;
+    font-family: "Times New Roman", Georgia, Serif;
+    font-size: medium;
+
+}
+
+.panel {
+    padding: 10px 10px;
+    border: 1px solid green;
+}
+.panel .panel-success{
+    padding: 20px 20px;
+
+}
+
+.form-control {
+    color: black;
+    border: 1px solid green;
+}
+
+.navbar {
+ background-color: lightgreen;
+}
+
+
+.navbar-brand img {
+    float: left;
+    vertical-align: middle;
+    display: block;
+}

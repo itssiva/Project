@@ -1,0 +1,32 @@
+app:
+  restart: always
+  build: .
+  expose:
+    - "11000"
+  ports:
+    - "11000:11000"
+  links:
+    - redis:redis
+  volumes:
+    - ./Helloworld:/usr/src/Project/Helloworld
+    - ./Helloworld/static:/usr/src/Project/Helloworld/static
+  # env_file: .env
+  command: python manage.py runserver 0.0.0.0:11000 
+
+nginx: 
+  restart: always
+  build: ./nginx/
+  ports:
+    - "12000:80"
+  volumes:
+    - /www/static
+  volumes_from:
+    - app
+  links:
+    - app:app
+
+redis:
+  restart: always
+  image: redis:latest
+  ports:
+    - "13000:6379"
