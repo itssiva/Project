@@ -17,7 +17,7 @@ Used Django for creating the web service.
 Redis stores the logs for each interaction with the API, and is used to display the details for the internal users of the system
 
 
-###### Possible Improvements
+###### Need to have Improvements
 
 - OAUTH2 based access
 - Sigin in the webpage
