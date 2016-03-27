@@ -10,7 +10,6 @@ app:
   volumes:
     - ./Helloworld:/usr/src/Project/Helloworld
     - ./Helloworld/static:/usr/src/Project/Helloworld/static
-  # env_file: .env
   command: python manage.py runserver 0.0.0.0:11000 
 
 nginx: 

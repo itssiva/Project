@@ -33,7 +33,6 @@ def get_frequencies_per_minute(timestamps):
             end += SECONDS
     if count > 0:
         freqs.append(count)
-
     return ", ".join(str(i) for i in freqs)
 
 
@@ -41,6 +40,7 @@ def home(request):
     """
     calculate the per minute frequencies for each ip
      TODO : has to be improved to remove sparse elements
+        : Algorithm can be improved from single parsing
     """
     per_minute_freqs_v1_hw = {}    # for storing data about /v1/hello-world
     per_minute_freqs_v1_hw_l = {}   # for storing data about /v1/hello-world/logs
@@ -61,8 +61,9 @@ def home(request):
         freqs = get_frequencies_per_minute(timestamps)
         per_minute_freqs_v1_l[key.split(':')[-1]] = freqs      # extracting ip of "v1_l:127.0.0.1"
 
-    hw_logs = v1_helloworld_logs_helper()
-    v1logs = v1_logs_helper()
+    hw_logs = logs_v1_helloworld()                              # get the logs of /v1/logs/ dict
+    v1logs = {'v1/hello-world/': logs_v1_helloworld()['logs'], '/v1/hello-world/logs/': logs_v1_helloworld_logs()['logs'],
+              'v1/logs': logs_v1_logs()['logs']}                # to get the /v1/logs as a dict
 
     return render_to_response('home.html', {'hw_freq': per_minute_freqs_v1_hw,
                                             'hwl_freq': per_minute_freqs_v1_hw_l,
@@ -73,7 +74,8 @@ def home(request):
 
 
 def v1_helloworld(request):
-    """logs the ip address and timestamp of the request for the /v1/hello-world endpoint
+    """
+    logs the ip address and timestamp of the request for the /v1/hello-world endpoint
         also returns JSON hello world message
     """
     ip = request.META['REMOTE_ADDR']
@@ -83,13 +85,27 @@ def v1_helloworld(request):
     return JsonResponse(msg)
 
 
-def v1_helloworld_logs_helper():
+def logs_v1_helloworld():
+    """
+    function that returns logs for the helloworld endpoint
+    """
+    response = {'logs': []}
+    logs = []
+    keys = r.keys("v1_hw:*")
+    for key in keys:
+        for value in r.lrange(key, 0, -1):
+            logs.append({"ip": key.split(':')[-1], "timestamp": value})
+    response['logs'] = logs
+    return response
+
+
+def logs_v1_helloworld_logs():
     """
     helper function to the logs for the helloworld endpoint
     """
     response = {'logs': []}
     logs = []
-    keys = r.keys()
+    keys = r.keys("v1_hw_l:*")
     for key in keys:
         for value in r.lrange(key, 0, -1):
             logs.append({"ip": key.split(':')[-1], "timestamp": value})
@@ -98,22 +114,27 @@ def v1_helloworld_logs_helper():
 
 
 def v1_helloworld_logs(request):
-
     """
     logs the request ip and timestamp returns the logs for the hello world
     """
     ip = request.META['REMOTE_ADDR']
     timestamp = int(time.time())
     r.rpush('v1_hw_l:'+ip, timestamp)
-    response = v1_helloworld_logs_helper()
+    response = logs_v1_helloworld()
     return JsonResponse(response)
 
 
 def v1_logs_helper():
-    logs = {'logset': {}}
-    logset = logs['logset']
-    logset['endpoint'] = "hello-world"
-    logset['logs'] = v1_helloworld_logs_helper()['logs']
+    """
+    returns the logs for all the endpoints
+    """
+    logs = {'logset': []}
+    endpoint = {'endpoint': 'hello-world', 'logs': logs_v1_helloworld()['logs']}
+    logs['logset'].append(endpoint)
+    endpoint = {'endpoint': 'hello-world/logs', 'logs': logs_v1_helloworld_logs()['logs']}
+    logs['logset'].append(endpoint)
+    endpoint = {'endpoint': 'logs', 'logs': logs_v1_logs()['logs']}
+    logs['logset'].append(endpoint)
     return logs
 
 
@@ -125,6 +146,20 @@ def v1_logs(request):
     timestamp = int(time.time())
     r.rpush('v1_l:'+ip, timestamp)
     return JsonResponse(v1_logs_helper())
+
+
+def logs_v1_logs():
+    """
+    helper function to the logs for the helloworld endpoint
+    """
+    response = {'logs': []}
+    logs = []
+    keys = r.keys("v1_l:*")
+    for key in keys:
+        for value in r.lrange(key, 0, -1):
+            logs.append({"ip": key.split(':')[-1], "timestamp": value})
+    response['logs'] = logs
+    return response
 
 
 def default(request):

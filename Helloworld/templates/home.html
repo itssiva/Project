@@ -3,47 +3,9 @@
 {% block title %}Home{% endblock %}
 {% block content %}
     <h3><strong>Welcome to Hello world API </strong></h3>
-    <div class="col-md-6">
-    <h3>Logs for /v1/hello-world</h3>
-    <table class = "table">
-            <caption>Logs for /v1/hello-world/logs/</caption>
-            <thead>
-                <tr>
-                    <th>IP</th>
-                    <th>TimeStamp</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for each in hw_logs.logs %}
-                    <tr>
-                        <td>{{ each.ip }}</td>
-                        <td>{{ each.timestamp }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    {% include 'v1_helloworld_logs.html' %}
+    {% include 'v1_logs.html' %}
 
-    <div class="col-md-6">
-    <h3>Logs for /v1/logs</h3>
-    <table class = "table">
-            <caption>Logs for /v1/logs/</caption>
-            <thead>
-                <tr>
-                    <th>IP</th>
-                    <th>TimeStamp</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for each in v1_logs.logset.logs %}
-                    <tr>
-                        <td>{{ each.ip }}</td>
-                        <td>{{ each.timestamp }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
 
     <div class="col-md-4 col-sm-12">
         <table class = "table">
